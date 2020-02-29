@@ -26,7 +26,7 @@ namespace AspNetCorePlayground
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

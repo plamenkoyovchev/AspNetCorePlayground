@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AspNetCorePlayground.Models;
+using System.Net;
 
 namespace AspNetCorePlayground.Controllers
 {
@@ -25,7 +22,31 @@ namespace AspNetCorePlayground.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            return this.View();
+        }
+
+        public IActionResult NF()
+        {
+            return NotFound();
+        }
+
+        public IActionResult ISE()
+        {
+            return StatusCode(500);
+        }
+
+        public IActionResult HttpError(HttpStatusCode statusCode)
+        {
+            if (statusCode == HttpStatusCode.NotFound)
+            {
+                return this.View("Views/Shared/Errors/NotFound404.cshtml");
+            }
+            else if (statusCode == HttpStatusCode.InternalServerError)
+            {
+                return this.View("Views/Shared/Errors/InternalServerError500.cshtml");
+            }
+
+            return this.Error();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
