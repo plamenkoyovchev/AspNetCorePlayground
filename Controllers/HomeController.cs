@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AspNetCorePlayground.Models;
 using System.Net;
+using AspNetCorePlayground.Filters;
 
 namespace AspNetCorePlayground.Controllers
 {
@@ -20,6 +21,7 @@ namespace AspNetCorePlayground.Controllers
             return View();
         }
 
+        [TypeFilter(typeof(AddHeaderAsyncFilterWithDI))]
         public IActionResult Privacy()
         {
             return this.View();
