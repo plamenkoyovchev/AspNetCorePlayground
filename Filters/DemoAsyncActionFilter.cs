@@ -1,9 +1,10 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AspNetCorePlayground.Filters
 {
-    public class DemoAsyncActionFilter : IAsyncActionFilter
+    public class DemoAsyncActionFilter : Attribute, IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
