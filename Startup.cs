@@ -1,9 +1,9 @@
-using AspNetCorePlayground.Middleware;
 using AspNetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace AspNetCorePlayground
 {
@@ -26,7 +26,14 @@ namespace AspNetCorePlayground
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}");
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
