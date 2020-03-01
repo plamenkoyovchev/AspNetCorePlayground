@@ -21,7 +21,7 @@ namespace AspNetCorePlayground
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews(
-                opt => opt.ModelBinderProviders.Add(new YearModelBinderProvider()));
+                opt => opt.ModelBinderProviders.Insert(0, new YearModelBinderProvider()));
 
             services.AddTransient<IDateTimeService, DateTimeService>();
         }
