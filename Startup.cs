@@ -1,3 +1,4 @@
+using AspNetCorePlayground.ModelBinders.Providers;
 using AspNetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +20,9 @@ namespace AspNetCorePlayground
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(
+                opt => opt.ModelBinderProviders.Add(new YearModelBinderProvider()));
+
             services.AddTransient<IDateTimeService, DateTimeService>();
         }
 
