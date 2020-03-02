@@ -14,12 +14,12 @@ namespace AspNetCorePlayground.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrWhiteSpace(Name))
             {
                 yield return new ValidationResult("Name is required");
             }
 
-            if (string.IsNullOrEmpty(Address))
+            if (string.IsNullOrWhiteSpace(Address))
             {
                 yield return new ValidationResult("Address is required");
             }
