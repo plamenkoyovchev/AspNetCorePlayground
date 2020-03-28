@@ -2,6 +2,7 @@ using AspNetCorePlayground.ModelBinders.Providers;
 using AspNetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,7 +22,11 @@ namespace AspNetCorePlayground
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews(
-                opt => opt.ModelBinderProviders.Insert(0, new YearModelBinderProvider()));
+                opt =>
+                {
+                    opt.ModelBinderProviders.Insert(0, new YearModelBinderProvider());
+                    opt.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
 
             services.AddTransient<IDateTimeService, DateTimeService>();
         }
