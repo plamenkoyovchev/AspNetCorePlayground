@@ -1,7 +1,9 @@
+using AspNetCorePlayground.Data;
 using AspNetCorePlayground.ModelBinders.Providers;
 using AspNetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,13 @@ namespace AspNetCorePlayground
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDefaultIdentity<IdentityUser>(opt =>
+            {
+                opt.Password.RequireDigit = true;
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<PlaygroundContext>();
+
             services.AddControllersWithViews(
                 opt =>
                 {
@@ -48,6 +57,7 @@ namespace AspNetCorePlayground
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
