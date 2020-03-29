@@ -1,3 +1,4 @@
+using AspNetCorePlayground.Data.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,5 +10,7 @@ namespace AspNetCorePlayground.Data
             : base(options)
         {
         }
+
+        public DbSet<Installation> Installations { get; set; }
     }
 }
