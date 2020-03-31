@@ -9,11 +9,13 @@ namespace AspNetCorePlayground.Controllers
     {
         private readonly PlaygroundContext context;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public TestController(PlaygroundContext context, UserManager<IdentityUser> userManager)
+        public TestController(PlaygroundContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.context = context;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Get()
@@ -33,6 +35,26 @@ namespace AspNetCorePlayground.Controllers
 
             var userCreateResult = await this.userManager.CreateAsync(user, "Password1");
             if (userCreateResult.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(string roleName)
+        {
+            if (string.IsNullOrWhiteSpace(roleName))
+            {
+                return BadRequest();
+            }
+
+            var createRoleResult = await this.roleManager.CreateAsync(new IdentityRole()
+            {
+                Name = roleName
+            });
+            if (createRoleResult.Succeeded)
             {
                 return Ok();
             }
