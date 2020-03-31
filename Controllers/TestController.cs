@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using AspNetCorePlayground.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,8 +24,13 @@ namespace AspNetCorePlayground.Controllers
             return Ok(this.context.Installations);
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateUser()
+        public async Task<IActionResult> Create(string test = null)
         {
             var user = new IdentityUser()
             {
@@ -39,7 +45,7 @@ namespace AspNetCorePlayground.Controllers
                 return Ok();
             }
 
-            return BadRequest();
+            return this.BadRequest(userCreateResult.Errors);
         }
 
         [HttpPost]

@@ -42,7 +42,6 @@ namespace AspNetCorePlayground
                     opt.ModelBinderProviders.Insert(0, new YearModelBinderProvider());
                     opt.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 });
-            services.AddRazorPages();
 
             services.AddTransient<IDateTimeService, DateTimeService>();
         }
